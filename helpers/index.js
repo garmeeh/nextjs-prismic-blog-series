@@ -5,6 +5,18 @@ function linkResolver(doc) {
   return '/';
 }
 
+function trackPageView(url) {
+  try {
+    window.gtag('config', 'UA-XXXXXXXX-X', {
+      page_location: url
+    });
+  } catch (error) {
+    // silence the error in dev mode
+    // and/or if gtag fails to load
+  }
+}
+
 module.exports = {
-  linkResolver
+  linkResolver,
+  trackPageView
 };

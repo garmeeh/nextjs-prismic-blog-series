@@ -1,15 +1,23 @@
 import App, { Container } from 'next/app';
 import React from 'react';
 import Head from 'next/head';
+import Router from 'next/router';
 import { DEFAULT_SEO } from '../config';
+import { trackPageView } from '../helpers';
+
 export default class MyApp extends App {
   static async getInitialProps({ Component, router, ctx }) {
     let pageProps = {};
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }
-
     return { pageProps };
+  }
+
+  componentDidMount() {
+    Router.onRouteChangeComplete = url => {
+      trackPageView(url);
+    };
   }
 
   render() {
