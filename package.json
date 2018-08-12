@@ -11,9 +11,12 @@
     "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "cookies": "^0.7.1",
     "express": "^4.16.3",
     "next": "^6.0.3",
-    "prismic-javascript": "^1.5.0-beta.4",
+    "next-cookies": "^1.0.2",
+    "prismic-javascript": "^1.5.0",
     "prismic-reactjs": "^0.3.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0"

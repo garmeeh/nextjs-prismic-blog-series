@@ -17,11 +17,14 @@ const getBlogPostsAPI = async params => {
   }
 };
 
-const getBlogPostAPI = async slug => {
+const getBlogPostAPI = async (slug, ref = null) => {
   try {
     const API = await Prismic.api(PRISMIC_API_URL);
     const response = await API.query(
-      Prismic.Predicates.at('my.blog_post.uid', slug)
+      Prismic.Predicates.at('my.blog_post.uid', slug),
+      {
+        ref
+      }
     );
     return response.results[0];
   } catch (error) {

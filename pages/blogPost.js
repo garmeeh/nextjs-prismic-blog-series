@@ -4,11 +4,13 @@ import { getBlogPostAPI } from '../api';
 import linkResolver from '../helpers';
 import DefaultLayout from '../layouts';
 import Head from 'next/head';
-
+import getCookies from 'next-cookies';
 export default class BlogPost extends Component {
   static async getInitialProps(context) {
     const { slug } = context.query;
-    const response = await getBlogPostAPI(slug);
+    const cookies = getCookies(context);
+    const ref = cookies['io.prismic.preview'];
+    const response = await getBlogPostAPI(slug, ref);
     return {
       post: response
     };

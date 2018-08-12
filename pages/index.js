@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getBlogPostsAPI } from '../api';
 import { linkResolver } from '../helpers';
 import DefaultLayout from '../layouts';
+import getCookies from 'next-cookies';
 
 const Index = ({ posts = [] }) => (
   <DefaultLayout>
@@ -22,8 +23,10 @@ const Index = ({ posts = [] }) => (
   </DefaultLayout>
 );
 
-Index.getInitialProps = async () => {
-  const response = await getBlogPostsAPI({ pageSize: 5 });
+Index.getInitialProps = async context => {
+  const cookies = getCookies(context);
+  const ref = cookies['io.prismic.preview'] || null;
+  const response = await getBlogPostsAPI({ pageSize: 5, ref });
   return {
     posts: response.results
   };

@@ -2,6 +2,7 @@
 // Event handlers like onClick can't be added to this file
 import Document, { Head, Main, NextScript } from 'next/document';
 import { Fragment } from 'react';
+import { PRISMIC_API_URL } from '../config';
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const isProduction = process.env.NODE_ENV === 'production';
@@ -20,6 +21,16 @@ export default class MyDocument extends Document {
     };
   }
 
+  setPrismic() {
+    return {
+      __html: `
+        window.prismic = {
+          endpoint: '${PRISMIC_API_URL}'
+        }
+      `
+    };
+  }
+
   render() {
     const { isProduction } = this.props;
     return (
@@ -34,6 +45,16 @@ export default class MyDocument extends Document {
                 src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"
               />
               <script dangerouslySetInnerHTML={this.setGoogleTags()} />
+            </Fragment>
+          )}
+
+          {!isProduction && (
+            <Fragment>
+              <script dangerouslySetInnerHTML={this.setPrismic()} />
+              <script
+                type="text/javascript"
+                src="//static.cdn.prismic.io/prismic.min.js"
+              />
             </Fragment>
           )}
         </body>
