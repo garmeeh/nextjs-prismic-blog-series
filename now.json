@@ -5,5 +5,11 @@
       "src": "next.config.js",
       "use": "@now/next"
     }
+  ],
+  "routes": [
+    {
+      "src": "/blog/(?<slug>.+)",
+      "dest": "/blogPost?slug=$slug"
+    }
   ]
 }
